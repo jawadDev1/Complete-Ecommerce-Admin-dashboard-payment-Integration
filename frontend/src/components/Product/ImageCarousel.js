@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import img from '../../images/1.jpg'
-import img1 from '../../images/2.jpg'
-import img2 from '../../images/3.jpg'
-let images = [img, img1, img2]
-function ImageCarousel() {
+
+
+function ImageCarousel({productImages}) {
     const [slideImage, setSlideImage] = useState(0)
+    let images = [];
+    productImages.forEach( image => (
+        images.push(image.url)
+    ))
 
     const nextSlide = useCallback( ()=>{
         document.getElementById('slideImage').style.opacity = 100
@@ -15,7 +17,7 @@ function ImageCarousel() {
             return;
         }
         setSlideImage(slideImage + 1)
-    }, [slideImage])
+    }, [slideImage, images.length])
 
     const prevSlide = useCallback( ()=>{
         if(slideImage === 0){
@@ -23,13 +25,13 @@ function ImageCarousel() {
             return;
         }
         setSlideImage(slideImage - 1)
-    }, [slideImage])
+    }, [slideImage, images.length])
 
     useEffect(() => {
         const slideInterval = setInterval(nextSlide, 4000)
 
         return ()=> clearInterval(slideInterval)
-        
+        //  eslint-disable-next-line
     }, [nextSlide, prevSlide])
     
     

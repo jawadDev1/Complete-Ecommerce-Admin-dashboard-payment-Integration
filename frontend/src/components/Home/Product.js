@@ -1,7 +1,7 @@
 import React from 'react'
 import RatingStar from '../Product/RatingStar'
 import { Link } from 'react-router-dom'
-import img from '../../images/1.jpg'
+
 
 function Product({ product }) {
     
@@ -12,7 +12,7 @@ function Product({ product }) {
             <Link to={`/products/product/${product._id}`} >
             <div className=" p-4 hover:relative hover:shadow-lg hover:scale-105 duration-300 ">
                 <div className="block relative  rounded overflow-hidden">  
-                    <img alt="ecommerce" className="object-cover object-center bg-cover bg-center w-full h-full block" src={img} loading='lazy'/>
+                    <img alt="ecommerce" className="object-cover object-center bg-cover bg-center w-full h-full block" src={product.images[0].url} loading='lazy'/>
                 </div>
                 <div className="p-2  bg-slate-50">
                     <h3 className=" text-gray-500 text-xs tracking-widest title-font mb-1">{product.category}</h3>
