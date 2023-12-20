@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Roboto+Condensed&display=swap');
+
+
+body{
+    font-family: 'Roboto Condensed', sans-serif;
+    background: #f7f7f7;    
+}
+
+.showHideMenu{
+    top: 0vh !important;
+}
+
+.show-search{
+    top: 4rem;
+    transition: all .4s ease-in-out;
+}
+
+.showFilter{
+    left: 0;
+}
+
+.scroll-the-bar{
+    transform: translateX(100%);
+    
+}
+
+.hide-form{
+    transform: translateX(150%);   
+}
+
+.MuiFab-primary {
+    background: none !important;
+    padding: 0 !important;
+    height: auto !important;
+    width: auto !important;
+}
+
+.cart-grid-style{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+}
+
+/* hide input number arrows */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.MuiTypography-root {
+    background-color: #fff !important;
+  }
