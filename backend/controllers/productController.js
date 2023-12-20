@@ -13,7 +13,6 @@ const getAllProducts = catchAsyncErrors(async (req, res, next) => {
     let products = await apiFeature.query;
     let productsCount = products.length;
 
-    console.log(products);
     apiFeature.pagination(resultPerPage)
 
     products = await apiFeature.query.clone();

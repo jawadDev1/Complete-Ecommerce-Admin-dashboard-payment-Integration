@@ -38,7 +38,7 @@ class ApiFeatures {
         queryStr = JSON.parse(queryStr);
         
         this.query = this.query.find({...keyword, ...queryStr});
-        console.log(this.query)
+        
         return this
     }
 
