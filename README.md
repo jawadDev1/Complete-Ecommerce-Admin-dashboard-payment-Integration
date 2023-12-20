@@ -1,4 +1,4 @@
-# Full Ecommerce Website with Admin Dashboard and Payment Integration
+# Complete Ecommerce Website with Admin Dashboard and Payment Integration
 
 # Getting Started with Create React App
 
