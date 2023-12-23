@@ -1,6 +1,5 @@
 import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
-import img from '../../images/attire 1.webp'
 import { useDispatch } from 'react-redux';
 import { addToCart, removeCartItem } from '../../features/Cart/cartSlice';
 
@@ -28,7 +27,7 @@ function CartItem({item}) {
   return (
     <>
     <div className="product flex items-center pt-2 ">
-                        <img src={img} alt="Product" className='w-16'/>
+                        <img src={item.images[0].url} alt="Product" className='w-16'/>
                         <h4>{item.name}</h4>
                     </div>
                     <div className="quantity flex flex-col md:flex-row">

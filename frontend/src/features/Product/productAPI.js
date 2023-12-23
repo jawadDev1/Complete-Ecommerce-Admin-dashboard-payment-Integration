@@ -1,15 +1,14 @@
-
-let url = '/api/v1/products'
+import { makeHTTPRequest, makeHTTPRequestWithJSON, makeHTTPRequestWithForm } from '../makeHTTPRequest';
 
 // get all products or filter them
 export function getProducts(keyword = '', page = 1, price=[0, 100000], category){
     return new Promise( async (resolve, reject) => {
         let response;
         if(category){
-            response = await fetch(`${url}/getallproducts?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}`)
+            response = await fetch(`/api/v1/products/getallproducts?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}`)
 
         }  else{
-            response = await fetch(`${url}/getallproducts?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}`)
+            response = await fetch(`/api/v1/products/getallproducts?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}`)
         }
 
         const data = await response.json();
@@ -23,172 +22,44 @@ export function getProducts(keyword = '', page = 1, price=[0, 100000], category)
 
 // get single product details
 export function getProductDetails(id){
-    return new Promise( async (resolve, reject) => {
-        const response = await fetch(`${url}/product/${id}`)
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        resolve(data);
-    })
+    return makeHTTPRequest(`products/product/${id}`, 'GET');
 }
 
 // get all the categories
 export function getCategories(){
-    return new Promise( async (resolve, reject) => {
-        const response = await fetch(`${url}/categories`)
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        resolve(data);
-    })
+    return makeHTTPRequest(`products/categories`, 'GET');
 }
 
 // add product review
 export function addReview(reviewForm){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/review`, {
-            method: 'PUT',
-            credentials: 'include',
-            mode: 'cors',
-            body: reviewForm
-        })
-        
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithForm('products/review', 'PUT', reviewForm);
 }
-
 
 // get all the products for admin
 export function getAllProducts(){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/admin/getallproducts`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }, 
-            mode: 'cors',
-            credentials: 'include'
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest('products/admin/getallproducts', 'GET');
 }
 
 // add product 
 export function addNewProduct(productForm){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/admin/addproduct`, {
-            method: 'POST',
-            credentials: 'include',
-            mode: 'cors',
-            body: productForm
-        })
-        
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithForm(`products/admin/product`, 'POST', productForm);
 }
 
 // delete product 
 export function deleteProduct(id){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/admin/product/${id}`, {
-            method: 'DELETE',
-            credentials: 'include',
-            mode: 'cors',
-            
-        })
-        
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest(`products/admin/product/${id}`, 'DELETE');
 }
 
 // update product 
 export function updateProduct(productForm, id){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/admin/product/${id}`, {
-            method: 'PUT',
-            credentials: 'include',
-            mode: 'cors',
-            body: productForm
-        })
-        
-       
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithForm(`products/admin/addproduct/${id}`, 'PUT', productForm);
 }
 // get all the reviews of a product
 export function getProductReviews(id){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/reviews/${id}`, {
-            method: 'GET',
-            credentials: 'include',
-            mode: 'cors',
-            
-        })
-        
-       
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest(`products/reviews/${id}`, 'GET');
 }
 
 // delete a product review
 export function deleteProductReview(productId, reviewId){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/reviews/${productId}?id=${reviewId}`, {
-            method: 'DELETE',
-            credentials: 'include',
-            mode: 'cors',
-            
-        })
-        
-       
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest(`products/reviews/${productId}?id=${reviewId}`, 'DELETE');
 }

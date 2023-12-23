@@ -27,7 +27,6 @@ const handleSignup = catchAsyncError(async (req, res, next) => {
 const handleLogin = catchAsyncError(async (req, res, next) => {
     
     const { loginEmail, loginPassword } = req.body;
-
     let user = await User.findOne({ email: loginEmail }).select("+password");
     if (!user) return next(new errorHandler("Enter a valid Email or Password", 400));
 

@@ -38,8 +38,8 @@ function Header() {
                         <ul className='md:mr-auto md:ml-4 md:py-1 md:pl-4 flex md:flex-wrap flex-col md:flex-row  md:items-center md:text-base md:justify-center gap-4  text-xl  p-4 '>
                             <Link to='/' className="mr-5 text-black hover:text-red-600 transition-all duration-150">Home</Link>
                             <Link to='/products' className="mr-5 text-black hover:text-red-600 transition-all duration-150">Products</Link>
-                            <Link to='/contact' className="mr-5 text-black hover:text-red-600 transition-all duration-150">Contact</Link>
-                            <Link to='/about' className="mr-5 text-black hover:text-red-600 transition-all duration-150">About</Link>
+                            {/* <Link to='/contact' className="mr-5 text-black hover:text-red-600 transition-all duration-150">Contact</Link>
+                            <Link to='/about' className="mr-5 text-black hover:text-red-600 transition-all duration-150">About</Link> */}
                         </ul>
                     </nav>
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import CheckOutSteps from './CheckOutSteps'
 import { useSelector } from 'react-redux'
-import img from '../../images/attire 1.webp'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -62,7 +61,7 @@ function ConfirmOrder() {
             {cartItems.map(item => {
               return <div className="cart-item flex justify-start md:justify-around gap-2 items-center m-3 flex-wrap" key={item._id}>
                 <div className="item flex items-center md:gap-5 gap-3">
-                  <img src={img} alt="Product" className='w-14 md:w-28 object-cover object-center  ' />
+                  <img src={item.images[0].url} alt="Product" className='w-14 md:w-28 object-cover object-center  ' />
                   <h4>{item.name}</h4>
                 </div>
                 <div className="price">

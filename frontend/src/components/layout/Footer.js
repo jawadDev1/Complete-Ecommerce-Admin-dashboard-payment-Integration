@@ -19,7 +19,7 @@ function Footer() {
 
         <div className="rightFooter flex flex-col gap-5 w-1/3 p-2">
         <h3 className=' hover:text-red-600'>Follow Us On</h3>
-        <a href="/" target='_blank' className=' hover:text-red-600'>GitHub</a>
+        <a href="https://github.com/jawadDev1" target='_blank' rel="noreferrer" className=' hover:text-red-600'>GitHub</a>
         <a href="/" target='_blank' className=' hover:text-red-600'>LinkedIn</a>
         <a href="/" target='_blank' className=' hover:text-red-600'>Facebook</a>
         </div>

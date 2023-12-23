@@ -1,129 +1,30 @@
-const url = `${process.env.REACT_APP_BACKEND_URL}/api/v1/orders`
-
+import { makeHTTPRequest, makeHTTPRequestWithJSON, makeHTTPRequestWithForm } from '../makeHTTPRequest';
 
 export function createOrder(order){
-    return new Promise( async (resolve, reject) => {
-        let response = await fetch(`${url}/neworder`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify(order)
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithJSON('orders/neworder', 'POST', JSON.stringify(order));
 }
 
 // send all the orders of user
 export function myOrders(){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/myorders`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }, 
-            mode: 'cors',
-            credentials: 'include'
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest('orders/myorders', 'GET');
 }
 
 // get the details of a order
 export function orderDetails(id){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/order/${id}`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }, 
-            mode: 'cors',
-            credentials: 'include'
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest(`orders/order/${id}`, 'GET');
 }
 
 // get all the orders for admin
 export function getAllOrders(){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/admin/allorders`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }, 
-            mode: 'cors',
-            credentials: 'include'
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest(`orders/admin/allorders`, 'GET');
 }
 
 // delete order 
 export function deleteOrder(id){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/admin/order/${id}`, {
-            method: 'DELETE',
-            credentials: 'include',
-            mode: 'cors',
-            
-        })
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+   return makeHTTPRequest(`orders/admin/order/${id}`, 'DELETE');
 }
 
 // update order status
 export function updateOrder(id, updateForm){
-    return new Promise( async (resolve, reject) => {
-        let response = await fetch(`${url}/admin/order/${id}`, {
-            method: 'PUT',
-            credentials: 'include',
-            mode: 'cors',
-            body: updateForm
-            
-        })
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithForm(`orders/admin/order/${id}`, 'PUT', updateForm);
 }

@@ -1,260 +1,63 @@
-// let url = `${process.env.REACT_APP_BACKEND_URL}/api/v1/users`
+import { makeHTTPRequest, makeHTTPRequestWithJSON, makeHTTPRequestWithForm } from '../makeHTTPRequest';
 let url = `/api/v1/users`
 
 // login 
 export function login(loginEmail, loginPassword){
-    return new Promise( async (resolve, reject) => {
-        let response = await fetch(`${url}/login`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: 'include',
-            body: JSON.stringify({loginEmail, loginPassword})
-        })
-        
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
-}
+    return makeHTTPRequestWithJSON('users/login', 'POST', JSON.stringify({loginEmail, loginPassword}));
+};
 
 // signup
 export function signup(formData){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/signup`, {
-            method: 'POST',
-            credentials: 'include',
-            mode: 'cors',
-            body: formData
-        })
-        
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithForm('users/signup', 'POST', formData);
 }
 
 // Load the user and get its details
 export function loadUser(){
-    return new Promise( async (resolve, reject) => {
-        let response = await fetch(`${url}/mydetails`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            mode: 'cors',
-            credentials: 'include'
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest('users/mydetails', 'GET');
 }
 
 // Logout the user
 export function logout(){
-    return new Promise( async (resolve, reject) => {
-        let response = await fetch(`${url}/logout`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: 'include'
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest('users/logout', 'GET');
 }
 
 // Update user profile
 export function updateProfile(formData){
-    return new Promise( async (resolve, reject) => {
-        let response = await fetch(`${url}/updateprofile`, {
-            method: 'PUT',
-            credentials: 'include',
-            body: formData
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithForm('users/updateprofile', 'PUT', formData);
 }
 
 // change the password
 export function changePassword(oldPassword, newPassword, confirmPassword){
-    return new Promise( async (resolve, reject) => {
-        let response = await fetch(`${url}/updatepassword`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify({oldPassword, newPassword, confirmPassword})
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    makeHTTPRequestWithJSON('users/updatepassword', 'PUT', JSON.stringify({oldPassword, newPassword, confirmPassword}));
 }
 
 // forgot password - send the email to users email
 export function forgotpassword(email){
-    return new Promise( async (resolve, reject) => {
-        let response = await fetch(`${url}/forgotpassword`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify({email})
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithJSON('users/forgotpassword', 'POST', JSON.stringify({email}));
 }
 
 
-// forgot password - send the email to users email
+// reset users password
 export function resetPassword(newPassword, confirmPassword, token){
-    return new Promise( async (resolve, reject) => {
-        let response = await fetch(`${url}/resetpassword/${token}`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify({newPassword, confirmPassword})
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithJSON(`users/resetpassword/${token}`, 'PUT', JSON.stringify({newPassword, confirmPassword}))
 }
 
 // get all the users for admin
 export function getAllUsers(){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/admin/getallusers`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }, 
-            mode: 'cors',
-            credentials: 'include'
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest('users/admin/getallusers', 'GET');
 }
 
-// get all the users for admin
+// Delete a user
 export function deleteUser(id){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/admin/user/${id}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json"
-            }, 
-            mode: 'cors',
-            credentials: 'include'
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest(`users/admin/user/${id}`, 'DELETE')
 }
 
 // get user details
 export function getUserDetails(id){
-    return new Promise( async (resolve, reject) => {
-        console.log('yo ho ho')
-        let response = await fetch(`${url}/admin/user/${id}`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }, 
-            mode: 'cors',
-            credentials: 'include',
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequest(`users/admin/user/${id}`, 'GET')
 }
 // update user details
 export function updateUser(id, updatedUser){
-    return new Promise( async (resolve, reject) => {
-        
-        let response = await fetch(`${url}/admin/user/${id}`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json"
-            }, 
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify(updatedUser)
-        })   
-        
-        const data = await response.json();
-        if(data?.msg){
-            reject(data.msg)
-        }
-        
-        resolve(data);
-    })
+    return makeHTTPRequestWithJSON(`users/admin/user/${id}`, 'PUT', JSON.stringify(updatedUser));
 }
 
