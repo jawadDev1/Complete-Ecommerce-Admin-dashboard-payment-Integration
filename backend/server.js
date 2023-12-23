@@ -1,4 +1,4 @@
-require('dotenv').config({ path: 'backend/config/config.env' });
+require('dotenv').config({ path: 'backend/config/.env' });
 const app = require('./app');
 const connectToDB = require('./connectToDb');
 const { v2 : cloudinary } = require('cloudinary');
